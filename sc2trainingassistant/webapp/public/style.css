@@ -1,0 +1,120 @@
+html {
+  background: radial-gradient(circle farthest-corner at top,#f0f0f0 5em,#c6c6c6 60em);
+  height: 120vh;
+}
+
+body {
+  margin-top: 1em;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  color: #666;
+}
+
+h1 {
+  font-style: italic;
+  display: block;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80vw;
+  text-align: center;
+  font-size: 2.5em;
+  color: #483C46;
+}
+
+h2 {
+  display: block;
+  font-style: italic;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-size: 1.5em;
+  color: #ECF2FF;
+  background-color: #8C5F66;
+  padding: 0.5em;
+  width: 60vw;
+}
+
+h3 {
+  padding-top: 1.5em;
+  display: block;
+  text-align: center;
+  font-size: 1.3em;
+  color: #BAA7B0;
+}
+
+table {
+  font-size: 1.3em;
+}
+
+td {
+  color: #ECF2FF;
+  padding: 0.2em;
+  border-radius: 0.5em;
+}
+
+.logo {
+  display: block;
+  height: 10em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.performance-metrics-table {
+  display: block;
+  width: 60vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.performance-metric-key {
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  text-align: left;
+  width: 60%;
+}
+
+.performance-metric-value {
+  text-align: center;
+  width: 20%;
+}
+
+.performance-metric-rating {
+  text-align: center;
+  width: 20%;
+}
+
+.value-element {
+  font-weight: bold;
+}
+
+.metric-rating-poor {
+  background-color: #ED423A;
+}
+
+.metric-rating-mediocre {
+  background-color: #F18805;
+}
+
+.metric-rating-good {
+  background-color: #519872;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    background-color: #483C46;
+    color: #ECF2FF;
+    text-align: center;
+    padding: 0.7em;
+    border-radius: 0.3em;
+    font-style: italic;
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.break {
+  height: 5em;
+}

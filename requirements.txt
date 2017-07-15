@@ -1,0 +1,5 @@
+sc2replaynotifier
+techlabreactor
+sc2reader
+tinydb
+aiohttp

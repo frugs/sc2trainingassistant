@@ -1,0 +1,115 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+  <title>StarCraft II Macro-management Training Assistant</title>
+  <meta name="description" content="StarCraft II Macro-management Training Assistant">
+  <meta name="author" content="frugs">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
+</head>
+
+<body>
+
+<img src="http://allinbot.cloudapp.net/images/allin_official.png" class="logo"><img>
+
+<h1>StarCraft II Macro-management Training Assistant</h1>
+
+<div id="main-content-container" class="main-content">
+</div>
+
+<script id="main-content-template" type="text/x-handlebars-template">
+
+  {{#each players}}
+
+    <div class="player-performance-container">
+      <h2>{{playerName}}</h2>
+
+      <h3>Early-game peformance metrics (0:00 - 7:00)</h3>
+
+      <table class="performance-metrics-table">
+
+        {{#each earlyGamePerformanceMetrics}}
+
+          <tr>
+            <td class="performance-metric-key {{ratingCssClass}} tooltip">
+              {{metricName}}
+              <div class="tooltiptext">
+                {{metricDescription}}
+              </div>
+            </td>
+            <td class="performance-metric-value {{ratingCssClass}} tooltip">
+              <span class="value-element">{{achievedValue}}</span>
+              <div class="tooltiptext">
+                Target: {{idealValue}}
+              </div>
+            </td>
+            <td class="performance-metric-rating {{ratingCssClass}}">
+              {{ratingDescription}}
+            <td>
+          <tr>
+
+        {{/each}}
+
+      </table>
+    </div>
+
+    <div class="break"></div>
+
+  {{/each}}
+
+</script>
+
+<script type="text/javascript">
+  function populateTemplateData(data) {
+    data.players.forEach(function(player) {
+      player.earlyGamePerformanceMetrics.forEach(function(metric) {
+        if (metric.rating < 0.7) {
+          metric.ratingCssClass = "metric-rating-poor"
+          metric.ratingDescription = "Poor"
+        } else if (metric.rating < 1.0) {
+          metric.ratingCssClass = "metric-rating-mediocre"
+          metric.ratingDescription = "Mediocre"
+        } else {
+          metric.ratingCssClass = "metric-rating-good"
+          metric.ratingDescription = "Good"
+        }
+      })
+    })
+  }
+
+  queryParams = window.location.search
+  nextParamIndex = queryParams.indexOf('&')
+  hash = nextParamIndex != -1 ? queryParams.substring(6, nextParamIndex) : queryParams.substring(6)
+
+  var xhr = new XMLHttpRequest()
+  xhr.open("GET", "/data/" + hash, true)
+  xhr.onload = function (e) {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        var data = JSON.parse(xhr.responseText)
+        populateTemplateData(data)
+
+        var source = document.getElementById("main-content-template").innerHTML
+        var template = Handlebars.compile(source)
+        var html = template(data)
+
+        document.getElementById("main-content-container").innerHTML = html
+      } else {
+        document.getElementById("main-content-container").innerHTML = ""
+      }
+    }
+  }
+
+  xhr.onerror = function (e) {
+      document.getElementById("main-content-container").innerHTML = ""
+  }
+
+  xhr.send(null)
+</script>
+
+</body>
+</html>
