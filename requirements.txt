@@ -1,4 +1,5 @@
 sc2replaynotifier
+sc2replaysearch
 techlabreactor
 sc2reader
 tinydb
