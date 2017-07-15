@@ -7,7 +7,7 @@ from sc2reader.resources import Replay
 from .replayanalysis import ReplayAnalysis, PlayerPerformance, PerformanceMetric
 
 
-def _inject_performance(player: Player, replay: Replay) -> PerformanceMetric:
+def _inject_performance(player: Player, replay: Replay) -> List[PerformanceMetric]:
     achieved_value = techlabreactor.get_inject_pops_for_player(player, replay)
     ideal_value = 17
     rating = achieved_value / ideal_value
@@ -20,16 +20,21 @@ def _inject_performance(player: Player, replay: Replay) -> PerformanceMetric:
         rating)
 
 
-def _get_performance_metrics_for_player(player: Player, replay: Replay) -> List[PerformanceMetric]:
+def _get_early_game_performance_metrics_for_player(player: Player, replay: Replay) -> List[PerformanceMetric]:
     return [
         _inject_performance(player, replay)
     ]
 
 
 def _analyse_player_performance(player: Player, replay: Replay) -> PlayerPerformance:
+    if replay.length >= 7 * 60:
+        early_game_performance_metrics = _get_early_game_performance_metrics_for_player(player, replay)
+    else:
+        early_game_performance_metrics = []
+
     return PlayerPerformance(
         "{} ({})".format(player.name, player.play_race),
-        _get_performance_metrics_for_player(player, replay))
+        early_game_performance_metrics)
 
 
 def analyse_replay(replay: Replay) -> ReplayAnalysis:

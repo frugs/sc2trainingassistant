@@ -6,6 +6,15 @@ from sc2replaynotifier import ReplayHandler
 from .replayanalysis import ReplayAnalysis
 
 
+def _is_non_empty_analysis(replay_analysis: ReplayAnalysis):
+    all_metrics = []
+
+    for player_performance in replay_analysis.player_performances:
+        all_metrics.append(player_performance.early_game_performance_metrics)
+
+    return bool(all_metrics)
+
+
 class TrainingAssistantReplayHandler(ReplayHandler):
 
     def __init__(
@@ -17,4 +26,6 @@ class TrainingAssistantReplayHandler(ReplayHandler):
 
     async def handle_replay(self, replay: Replay):
         replay_analysis = self.analyse_replay(replay)
-        await self.render_replay_analysis(replay_analysis)
+
+        if not _is_non_empty_analysis(replay_analysis):
+            await self.render_replay_analysis(replay_analysis)
