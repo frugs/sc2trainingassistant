@@ -27,7 +27,7 @@ def _get_early_game_performance_metrics_for_player(player: Player, replay: Repla
 
 
 def _analyse_player_performance(player: Player, replay: Replay) -> PlayerPerformance:
-    if replay.length >= 7 * 60:
+    if replay.length.seconds >= 7 * 60:
         early_game_performance_metrics = _get_early_game_performance_metrics_for_player(player, replay)
     else:
         early_game_performance_metrics = []
