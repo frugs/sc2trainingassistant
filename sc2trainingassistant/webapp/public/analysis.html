@@ -70,9 +70,12 @@
         if (metric.rating < 0.7) {
           metric.ratingCssClass = "metric-rating-poor"
           metric.ratingDescription = "Poor"
-        } else if (metric.rating < 1.0) {
+        } else if (metric.rating < 0.9) {
           metric.ratingCssClass = "metric-rating-mediocre"
           metric.ratingDescription = "Mediocre"
+        } else if (metric.rating < 1.0) {
+          metric.ratingCssClass = "metric-rating-almost"
+          metric.ratingDescription = "Almost"
         } else {
           metric.ratingCssClass = "metric-rating-good"
           metric.ratingDescription = "Good"

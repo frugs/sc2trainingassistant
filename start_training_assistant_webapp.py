@@ -5,7 +5,7 @@ from sc2trainingassistant.webapp import start_webapp
 HOST = "localhost"
 PORT = 32332
 
-APP_DATA_PATH = os.path.expanduser("~/sc2trainingassistant")
+APP_DATA_PATH = os.path.expanduser("~/.sc2trainingassistant")
 
 
 def main():

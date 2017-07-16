@@ -95,8 +95,12 @@ td {
   background-color: #F18805;
 }
 
+.metric-rating-almost {
+  background-color: #94D134;
+}
+
 .metric-rating-good {
-  background-color: #519872;
+  background-color: #159952;
 }
 
 .tooltip .tooltiptext {
@@ -105,6 +109,7 @@ td {
     color: #ECF2FF;
     text-align: center;
     padding: 0.7em;
+    font-size: 0.8em;
     border-radius: 0.3em;
     font-style: italic;
     position: absolute;
