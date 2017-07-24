@@ -1,3 +1,5 @@
+import urllib.parse
+
 import pkg_resources
 from aiohttp.web import Application, Response, Request, json_response
 from tinydb import TinyDB, Query
@@ -30,12 +32,13 @@ class TrainingAssistantApplication(Application):
         request_content = await request.json()
 
         # Do a sanity check for non-corrupt data
-        if request_content.get("hash", "") == replay_hash:
+        if replay_hash and request_content.get("hash", "") == replay_hash:
             await self.loop.run_in_executor(None, self.db.remove, Query().hash == replay_hash)
             await self.loop.run_in_executor(None, self.db.insert, request_content)
-            return json_response({"url": "http://" + request.host + "/analysis.html?hash=" + replay_hash})
+            analysis_url = urllib.parse.urljoin(str(request.url), "../../analysis.html?hash=" + replay_hash)
+            return json_response({"url": analysis_url})
         else:
-            return json_response({"url": "http://" + request.host + "/error"})
+            return json_response({}, status=400)
 
     async def show_analysis_data(self, request: Request) -> Response:
         replay_hash = request.match_info.get("hash", "")
