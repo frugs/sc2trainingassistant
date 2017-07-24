@@ -35,7 +35,7 @@ class TrainingAssistantApplication(Application):
         if replay_hash and request_content.get("hash", "") == replay_hash:
             await self.loop.run_in_executor(None, self.db.remove, Query().hash == replay_hash)
             await self.loop.run_in_executor(None, self.db.insert, request_content)
-            analysis_url = urllib.parse.urljoin(str(request.url), "../../analysis.html?hash=" + replay_hash)
+            analysis_url = urllib.parse.urljoin(str(request.url), "../analysis.html?hash=" + replay_hash)
             return json_response({"url": analysis_url})
         else:
             return json_response({}, status=400)
