@@ -1,10 +1,20 @@
+import webbrowser
+
 from sc2replaynotifier import ReplayHandler
 
+from .replayanalysisserviceclient import ReplayAnalysisServiceClient as _ReplayAnalysisServiceClient
+from .trainingassistantclient import TrainingAssistantClient as _TrainingAssistantClient
 from .trainingassistantreplayhandler import TrainingAssistantReplayHandler as _TrainingAssistantReplayHandler
-from .replayanalyser import analyse_replay as _analyse_replay
-from .replayanalysisrenderer import ReplayAnalysisRenderer as _ReplayAnalysisRenderer
 
 
-def create_training_assistant_replay_handler(host: str) -> ReplayHandler:
-    renderer = _ReplayAnalysisRenderer(host)
-    return _TrainingAssistantReplayHandler(_analyse_replay, renderer.render_replay_analysis)
+def create_training_assistant_replay_handler(
+        replay_analysis_service_host: str,
+        training_assistant_host: str) -> ReplayHandler:
+
+    replay_analysis_service_client = _ReplayAnalysisServiceClient(replay_analysis_service_host)
+    training_assistant_client = _TrainingAssistantClient(training_assistant_host)
+    return _TrainingAssistantReplayHandler(
+        replay_analysis_service_client.analyse_replay,
+        training_assistant_client.upload_replay_analysis,
+        webbrowser.open_new_tab,
+        lambda x: print(x))

@@ -3,29 +3,51 @@ from typing import Callable
 from sc2reader.resources import Replay
 from sc2replaynotifier import ReplayHandler
 
-from .replayanalysis import ReplayAnalysis
 
+def _is_empty_analysis(replay_analysis: dict) -> bool:
+    if not replay_analysis.items():
+        return True
 
-def _is_non_empty_analysis(replay_analysis: ReplayAnalysis):
     all_metrics = []
 
-    for player_performance in replay_analysis.player_performances:
-        all_metrics.extend(player_performance.early_game_performance_metrics)
+    for player_performance in replay_analysis.get("players", []):
+        all_metrics.extend(player_performance.get("earlyGamePerformanceMetrics", []))
 
-    return bool(all_metrics)
+    return not bool(all_metrics)
 
 
 class TrainingAssistantReplayHandler(ReplayHandler):
 
     def __init__(
             self,
-            replay_analyser: Callable[[Replay], ReplayAnalysis],
-            replay_analysis_renderer):
+            replay_analyser,
+            replay_analysis_uploader,
+            url_opener: Callable[[str], None],
+            logger: Callable[[str], None]):
         self.analyse_replay = replay_analyser
-        self.render_replay_analysis = replay_analysis_renderer
+        self.upload_replay_analysis = replay_analysis_uploader
+        self.open_url = url_opener
+        self.log = logger
 
     async def handle_replay(self, replay: Replay):
-        replay_analysis = self.analyse_replay(replay)
+        self.log("New replay detected, analysing...")
 
-        if _is_non_empty_analysis(replay_analysis):
-            await self.render_replay_analysis(replay_analysis)
+        replay_analysis = await self.analyse_replay(replay)
+
+        self.log("Replay analysis complete.")
+
+        if _is_empty_analysis(replay_analysis):
+            self.log("Analysis results were empty.")
+            return
+
+        self.log("Uploading replay analysis...")
+
+        result = await self.upload_replay_analysis(replay_analysis)
+        url = result.get("url", "")
+
+        if not url:
+            self.log("Replay analysis upload failed.")
+
+        self.log("Replay analysis upload complete, opening analysis.")
+
+        self.open_url(url)
