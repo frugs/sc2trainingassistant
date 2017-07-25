@@ -89,7 +89,7 @@
   hash = nextParamIndex != -1 ? queryParams.substring(6, nextParamIndex) : queryParams.substring(6)
 
   var xhr = new XMLHttpRequest()
-  xhr.open("GET", "../data/" + hash, true)
+  xhr.open("GET", "data/" + hash, true)
   xhr.onload = function (e) {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
