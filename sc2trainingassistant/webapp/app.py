@@ -36,14 +36,9 @@ class TrainingAssistantApplication(Application):
             await self.loop.run_in_executor(None, self.db.remove, Query().hash == replay_hash)
             await self.loop.run_in_executor(None, self.db.insert, request_content)
 
-            # FIXME
-            # Header set in nginx
-            app_subpath = request.headers.get('X-App-Subpath', "")
-            app_root_url = "{}://{}{}".format(request.scheme, request.host, app_subpath)
-            analysis_url = app_root_url + "/analysis.html?hash=" + replay_hash
-            return json_response({"url": analysis_url})
+            return json_response({"status": "success", "hash": replay_hash})
         else:
-            return json_response({}, status=400)
+            return json_response({"status": "failure"}, status=402)
 
     async def show_analysis_data(self, request: Request) -> Response:
         replay_hash = request.match_info.get("hash", "")
@@ -54,5 +49,5 @@ class TrainingAssistantApplication(Application):
         if query_result:
             return json_response(query_result)
         else:
-            return json_response({"error": "Error loading analysis."})
+            return json_response({"status": "failure", "error": "Replay analysis not found."}, status=404)
 

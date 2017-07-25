@@ -1,5 +1,3 @@
-import webbrowser
-
 from sc2replaynotifier import ReplayHandler
 
 from .replayanalysisserviceclient import ReplayAnalysisServiceClient as _ReplayAnalysisServiceClient
@@ -16,5 +14,5 @@ def create_training_assistant_replay_handler(
     return _TrainingAssistantReplayHandler(
         replay_analysis_service_client.analyse_replay,
         training_assistant_client.upload_replay_analysis,
-        webbrowser.open_new_tab,
+        training_assistant_client.open_replay_analysis_in_browser,
         lambda x: print(x))

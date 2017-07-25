@@ -22,11 +22,11 @@ class TrainingAssistantReplayHandler(ReplayHandler):
             self,
             replay_analyser,
             replay_analysis_uploader,
-            url_opener: Callable[[str], None],
+            replay_analysis_opener,
             logger: Callable[[str], None]):
         self.analyse_replay = replay_analyser
         self.upload_replay_analysis = replay_analysis_uploader
-        self.open_url = url_opener
+        self.open_replay_analysis = replay_analysis_opener
         self.log = logger
 
     async def handle_replay(self, replay: Replay):
@@ -43,11 +43,12 @@ class TrainingAssistantReplayHandler(ReplayHandler):
         self.log("Uploading replay analysis...")
 
         result = await self.upload_replay_analysis(replay_analysis)
-        url = result.get("url", "")
+        status = result.get("status", "")
+        hash = result.get("hash", "")
 
-        if not url:
+        if not status or status == "failure" or not hash:
             self.log("Replay analysis upload failed.")
 
         self.log("Replay analysis upload complete, opening analysis.")
 
-        self.open_url(url)
+        self.open_replay_analysis(hash)
