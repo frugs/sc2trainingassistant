@@ -1,5 +1,3 @@
-import urllib.parse
-
 import pkg_resources
 from aiohttp.web import Application, Response, Request, json_response
 from tinydb import TinyDB, Query

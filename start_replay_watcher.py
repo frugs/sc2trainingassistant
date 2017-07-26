@@ -2,7 +2,7 @@ import argparse
 
 import sc2replaynotifier
 
-from sc2trainingassistant.replayhandler import create_training_assistant_replay_handler
+from trainingassistantreplaywatcher import create_training_assistant_replay_handler
 
 
 def main():

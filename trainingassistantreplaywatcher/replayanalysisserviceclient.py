@@ -1,9 +1,4 @@
-import webbrowser
-
 import aiohttp
-from sc2reader.resources import Replay
-
-from sc2trainingassistant.replayanalysisservice.replayanalysis import ReplayAnalysis
 
 ADD_REPLAY_ANALYSIS_ENDPOINT = "/submit"
 
@@ -13,8 +8,8 @@ class ReplayAnalysisServiceClient:
     def __init__(self, replay_analysis_service_host: str):
         self.add_replay_analysis_endpoint = replay_analysis_service_host + ADD_REPLAY_ANALYSIS_ENDPOINT
 
-    async def analyse_replay(self, replay: Replay) -> dict:
-        replay_file = open(replay.filename, "rb")
+    async def analyse_replay(self, replay_path) -> dict:
+        replay_file = open(replay_path, "rb")
 
         try:
             async with aiohttp.ClientSession() as session:

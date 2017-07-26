@@ -1,7 +1,7 @@
 import argparse
 import os
 
-from sc2trainingassistant.webapp import start_webapp
+from trainingassistantapp import start_webapp
 
 APP_DATA_DEFAULT_PATH = os.path.expanduser("~/.sc2trainingassistant/db.json")
 

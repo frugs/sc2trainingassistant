@@ -1,6 +1,5 @@
 from typing import Callable
 
-from sc2reader.resources import Replay
 from sc2replaynotifier import ReplayHandler
 
 
@@ -29,10 +28,10 @@ class TrainingAssistantReplayHandler(ReplayHandler):
         self.open_replay_analysis = replay_analysis_opener
         self.log = logger
 
-    async def handle_replay(self, replay: Replay):
+    async def handle_replay(self, replay_path: str):
         self.log("New replay detected, analysing...")
 
-        replay_analysis = await self.analyse_replay(replay)
+        replay_analysis = await self.analyse_replay(replay_path)
 
         self.log("Replay analysis complete.")
 

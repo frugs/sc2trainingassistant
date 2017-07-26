@@ -1,6 +1,6 @@
 import argparse
 
-from sc2trainingassistant.replayanalysisservice import start_replay_analysis_service
+from replayanalysisservice import start_replay_analysis_service
 
 
 def main():

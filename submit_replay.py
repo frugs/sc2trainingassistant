@@ -1,8 +1,7 @@
 import argparse
 import asyncio
-import sc2reader
 
-from sc2trainingassistant.replayhandler import create_training_assistant_replay_handler
+from trainingassistantreplaywatcher import create_training_assistant_replay_handler
 
 
 def main():
@@ -20,8 +19,7 @@ def main():
     replay_handler = create_training_assistant_replay_handler(
         args.replay_analysis_service_url,
         args.training_assistant_url)
-    replay = sc2reader.load_replay(args.replay_path[0])
-    asyncio.get_event_loop().run_until_complete(replay_handler.handle_replay(replay))
+    asyncio.get_event_loop().run_until_complete(replay_handler.handle_replay(args.replay_path[0]))
 
 if __name__ == '__main__':
     main()
