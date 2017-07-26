@@ -39,7 +39,7 @@ def _worker_saturation_performance(player: Player, replay: Replay) -> List[Perfo
     if thirty_five_worker_timing > 0:
         performance_metrics.append(PerformanceMetric(
             "Time taken to build 35 workers",
-            "Time taken since the start of the game to build 35 workers (equivalent to optimal saturation of 2 mineral"
+            "Time taken since the start of the game to build 35 workers (equivalent to optimal saturation of 2 mineral "
             "lines and a single gas geyser).",
             _seconds_to_time_string(thirty_five_worker_timing),
             _seconds_to_time_string(235),
