@@ -35,10 +35,20 @@ def _inject_performance(player: Player, replay: Replay) -> List[PerformanceMetri
 def _worker_saturation_performance(player: Player, replay: Replay) -> List[PerformanceMetric]:
     performance_metrics = []
 
+    thirty_five_worker_timing = techlabreactor.worker_count_timing(35, player, replay)
+    if thirty_five_worker_timing > 0:
+        performance_metrics.append(PerformanceMetric(
+            "Time taken to build 35 workers",
+            "Time taken since the start of the game to build 35 workers (equivalent to optimal saturation of 2 mineral"
+            "lines and a single gas geyser).",
+            _seconds_to_time_string(thirty_five_worker_timing),
+            _seconds_to_time_string(235),
+            5 - (4 * thirty_five_worker_timing / 235)))
+
     two_base_saturation_timing = techlabreactor.two_base_saturation_timing(player, replay)
     if two_base_saturation_timing > 0:
         performance_metrics.append(PerformanceMetric(
-            "Time taken to saturate two bases (44 workers)",
+            "Time taken to build 44 workers",
             "Time taken since the start of the game to build 44 workers (equivalent to optimal saturation of 2 bases).",
             _seconds_to_time_string(two_base_saturation_timing),
             _seconds_to_time_string(280),
@@ -47,7 +57,7 @@ def _worker_saturation_performance(player: Player, replay: Replay) -> List[Perfo
     three_base_saturation_timing = techlabreactor.three_base_saturation_timing(player, replay)
     if three_base_saturation_timing > 0:
         performance_metrics.append(PerformanceMetric(
-            "Time taken to saturate two bases (66 workers)",
+            "Time taken to build 66 workers",
             "Time taken since the start of the game to build 66 workers (equivalent to optimal saturation of 3 bases).",
             _seconds_to_time_string(three_base_saturation_timing),
             _seconds_to_time_string(390),
@@ -62,8 +72,8 @@ def _upgrade_performance(player: Player, replay: Replay) -> List[PerformanceMetr
     if first_upgrade_started_timing > 0:
         return [
             PerformanceMetric(
-                "Time taken before first numerical upgrade",
-                "Time elapsed from the start of the game before starting the first numerical upgrade. A numerical "
+                "Time taken before first upgrade",
+                "Time elapsed from the start of the game before starting the first unit upgrade. A unit "
                 "upgrade is an upgrade which effects the attack or defense values of multiple types of units, "
                 "researched at an Evolution Chamber, Forge, or Engineering Bay.",
                 _seconds_to_time_string(first_upgrade_started_timing),
