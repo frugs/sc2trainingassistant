@@ -27,7 +27,8 @@ class PlayerPerformance:
 
 class ReplayAnalysis:
 
-    def __init__(self, hash: str, player_performances: List[PlayerPerformance]):
+    def __init__(self, hash: str, summary: dict, player_performances: List[PlayerPerformance]):
         self.hash = hash
+        self.summary = summary
         self.player_performances = player_performances
 

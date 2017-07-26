@@ -23,12 +23,31 @@
 
 <script id="main-content-template" type="text/x-handlebars-template">
 
+  <div class="game-summary-container">
+    <h2>Game Summary</h2>
+
+    <h3 class="game-summary-title">{{summary.title}}</h3>
+    <table class="game-summary-table">
+      <tr>
+        <td class="game-summary-key">Start time: </td><td class="game-summary-value">{{summary.startTime}}</td>
+      </tr>
+      <tr>
+        <td class="game-summary-key">End time: </td><td class="game-summary-value">{{summary.endTime}}</td>
+      </tr>
+      <tr>
+        <td class="game-summary-key">Duration: </td><td class="game-summary-value">{{summary.duration}}</td>
+      </tr>
+    </table>
+  </div>
+
+  <h2>Player Performance Metrics</h2>
+
   {{#each players}}
 
     <div class="player-performance-container">
-      <h2>{{playerName}}</h2>
+      <h3>{{playerName}}</h3>
 
-      <h3>Early-game peformance metrics (0:00 - 7:00)</h3>
+      <h4 class="performance-metrics-header">Early-game peformance metrics (0:00 - 7:00)</h4>
 
       <table class="performance-metrics-table">
 

@@ -20,6 +20,7 @@ def safe_load_replay(replay_file) -> Replay:
 def serialise_replay_analysis(replay_analysis: ReplayAnalysis) -> dict:
     return {
         "hash": replay_analysis.hash,
+        "summary": replay_analysis.summary,
         "players": [
             {
                 "playerName": player_performance.player_name,

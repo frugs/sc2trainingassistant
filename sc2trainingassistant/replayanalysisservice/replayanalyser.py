@@ -125,11 +125,12 @@ def _analyse_player_performance(player: Player, replay: Replay) -> PlayerPerform
 def analyse_replay(replay: Replay) -> ReplayAnalysis:
 
     replay_hash = replay.filehash
+    replay_summary = techlabreactor.generate_replay_summary(replay)
     player_performances = [
         _analyse_player_performance(player, replay)
         for player
         in replay.players
         if player.play_race == "Zerg"]
 
-    return ReplayAnalysis(replay_hash, player_performances)
+    return ReplayAnalysis(replay_hash, replay_summary, player_performances)
 

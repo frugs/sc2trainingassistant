@@ -1,12 +1,12 @@
 html {
-  background: radial-gradient(circle farthest-corner at top,#f0f0f0 5em,#c6c6c6 60em);
+  background: radial-gradient(circle farthest-corner at top,##FFFFFF 5em,#DAF0EE 60em);
   height: 120vh;
 }
 
 body {
   margin-top: 1em;
   font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-  color: #666;
+  color: #3B413C;
 }
 
 h1 {
@@ -18,7 +18,6 @@ h1 {
   width: 80vw;
   text-align: center;
   font-size: 2.5em;
-  color: #483C46;
 }
 
 h2 {
@@ -28,18 +27,24 @@ h2 {
   margin-right: auto;
   text-align: center;
   font-size: 1.5em;
-  color: #ECF2FF;
-  background-color: #8C5F66;
+  background-color: #9DB5B2;
   padding: 0.5em;
   width: 60vw;
 }
 
 h3 {
-  padding-top: 1.5em;
+  text-align: center;
+  font-size: 1.4em;
+  padding: 0.5em;
+}
+
+h4 {
   display: block;
   text-align: center;
-  font-size: 1.3em;
-  color: #BAA7B0;
+  font-size: 1em;
+  font-style: italic;
+  background-color: #94D1BE;
+  padding: 0.3em;
 }
 
 table {
@@ -47,7 +52,6 @@ table {
 }
 
 td {
-  color: #ECF2FF;
   padding: 0.2em;
   border-radius: 0.5em;
 }
@@ -57,6 +61,30 @@ td {
   height: 10em;
   margin-left: auto;
   margin-right: auto;
+}
+
+.game-summary-table {
+  display: block;
+  width: 40vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.game-summary-key {
+  text-align: left;
+  width: 20%;
+}
+
+.game-summary-value {
+  text-align: center;
+  width: 20%;
+}
+
+.performance-metrics-header {
+  margin-left: auto;
+  margin-right: auto;
+  width: 40vw;
+  display: block;
 }
 
 .performance-metrics-table {
@@ -88,19 +116,19 @@ td {
 }
 
 .metric-rating-poor {
-  background-color: #ED423A;
+  background-color: #ED8E89;
 }
 
 .metric-rating-mediocre {
-  background-color: #F18805;
+  background-color: #F2B56A;
 }
 
 .metric-rating-almost {
-  background-color: #94D134;
+  background-color: #AFD179;
 }
 
 .metric-rating-good {
-  background-color: #159952;
+  background-color: #5A9977;
 }
 
 .tooltip .tooltiptext {
