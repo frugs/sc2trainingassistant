@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<img src="http://allinbot.cloudapp.net/images/allin_official.png" class="logo"><img>
+<img src="http://allinbot.cloudapp.net/images/allin_official.png" class="logo">
 
 <h1>All-Inspiration Replay Uploader</h1>
 
@@ -25,10 +25,17 @@
 <script type="text/javascript">
   var inputElement = document.querySelector("#replay-upload")
   var labelElement = inputElement.nextElementSibling
+  var labelSpanElement = labelElement.querySelector("span")
+
+  var dragAndDropSupported = 'draggable' in document.createElement('span') && typeof FileReader != 'undefined'
+  if (!dragAndDropSupported) {
+    labelSpanElement.innerHTML = '<span class="emphasis">Click to select a replay.</span>'
+  }
+
   inputElement.addEventListener("change", function(event) {
     path = event.target.value
     var filename = path.replace(/^.*[\\\/]/, '')
-    labelElement.querySelector("span").innerHTML = filename
+    labelSpanElement.innerHTML = filename
   })
 </script>
 
