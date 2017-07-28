@@ -14,18 +14,38 @@
 <form action="upload" enctype="multipart/form-data" method="post">
   <input id="replay-upload" type="file" name="replay" accept=".SC2Replay" class="input-file">
   <label for="replay-upload">
+    <span id="loader-container" class="loader hidden"></span>
     <img id="upload-icon" src="upload_icon.svg">
-    <span>
-      <span class="emphasis">Select a replay</span> or drag one over.
+    <span id="label-content">
+      <span>
+        <span class="emphasis">Select a replay</span> or drag one over.
+      </span>
+      <br>
+      <br>
+      <span id="error-message" class="error invisible">
+        There was an error processing your replay. Please try again or try
+        another replay.
+      </span>
     </span>
+    <span id="filename-content" class="invisible">some_filename.SC2Replay</span>
   </label>
-  <input type="submit" value="Upload" class="button">
+  <input id="submit-button" type="submit" value="Upload" class="button hidden">
 </form>
 
 <script type="text/javascript">
   var inputElement = document.querySelector("#replay-upload")
   var labelElement = inputElement.nextElementSibling
-  var labelSpanElement = labelElement.querySelector("span")
+  var submitButtonElement = document.querySelector("#submit-button")
+  var errorMessageElement = document.querySelector("#error-message")
+  var loaderContainerElement = document.querySelector("#loader-container")
+  var labelContentElement = document.querySelector("#label-content")
+  var uploadIconElement = document.querySelector("#upload-icon")
+  var filenameContent = document.querySelector("#filename-content")
+
+  var wasError = window.location.search.includes("error")
+  if (wasError) {
+    errorMessageElement.classList.remove("invisible")
+  }
 
   var dragAndDropSupported = 'draggable' in document.createElement('span') && typeof FileReader != 'undefined'
   if (!dragAndDropSupported) {
@@ -33,9 +53,28 @@
   }
 
   inputElement.addEventListener("change", function(event) {
+    errorMessageElement.classList.add("invisible")
+
     path = event.target.value
     var filename = path.replace(/^.*[\\\/]/, '')
-    labelSpanElement.innerHTML = filename
+
+    if (filename.length > 0) {
+      filenameContent.innerHTML = filename
+      filenameContent.classList.remove("invisible")
+      submitButtonElement.classList.remove("hidden")
+      labelContentElement.classList.add("invisible")
+    } else {
+      filenameContent.classList.add("invisible")
+      submitButtonElement.classList.add("hidden")
+      labelContentElement.classList.remove("invisible")
+    }
+  })
+
+  submitButtonElement.addEventListener("click", function(event) {
+    submitButtonElement.classList.add("fast-hidden")
+    labelContentElement.classList.add("fast-hidden")
+    uploadIconElement.classList.add("fast-hidden")
+    loaderContainerElement.classList.remove("hidden")
   })
 </script>
 
