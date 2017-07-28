@@ -107,6 +107,16 @@ def _expansion_performance(player: Player, replay: Replay) -> List[PerformanceMe
             _seconds_to_time_string(210),
             2.5 - (1.5 * third_expansion_timing / 210)))
 
+    fourth_expansion_timing = techlabreactor.fourth_expansion_timing(player, replay)
+    if fourth_expansion_timing >= 0:
+        performance_metrics.append(PerformanceMetric(
+            "Time taken before securing fourth",
+            "Time elapsed from the start of the game before commencing construction of an expansion at the fourth "
+            "expansion position.",
+            _seconds_to_time_string(fourth_expansion_timing),
+            _seconds_to_time_string(375),
+            (-1 * fourth_expansion_timing + 375 + 52) / 52))
+
     return performance_metrics
 
 
@@ -143,6 +153,25 @@ def _gas_income_performance(player: Player, replay: Replay) -> List[PerformanceM
             _seconds_to_time_string(timing),
             _seconds_to_time_string(300),
             (-1 * timing + 300 + 52) / 52))
+
+    return performance_metrics
+
+
+def _safety_spore_performance(player: Player, replay: Replay) -> List[PerformanceMetric]:
+    if not player.play_race == "Zerg":
+        return []
+
+    performance_metrics = []
+
+    timing = techlabreactor.safety_spores_timing(player, replay)
+    if timing >= 0:
+        performance_metrics.append(PerformanceMetric(
+            "Time taken before starting safety Spore Crawlers",
+            "Time elapsed from the start of the game before commencing construction of Spore Crawlers for safety "
+            "against cloaked, burrowed, or flying units.",
+            _seconds_to_time_string(timing),
+            _seconds_to_time_string(270),
+            (-1 * timing + 270 + 52) / 52))
 
     return performance_metrics
 
