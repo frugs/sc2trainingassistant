@@ -55,4 +55,4 @@ class ReplayUploaderApplication(Application):
                                 if is_success(resp2):
                                     return HTTPFound(self.show_replay_analysis_endpoint + replay_hash)
 
-        return HTTPFound("/index.html?error=true")
+        return HTTPFound("index.html?error=true")
