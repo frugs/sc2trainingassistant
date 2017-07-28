@@ -110,6 +110,43 @@ def _expansion_performance(player: Player, replay: Replay) -> List[PerformanceMe
     return performance_metrics
 
 
+def _tier_upgrade_performance(player: Player, replay: Replay) -> List[PerformanceMetric]:
+    if not player.play_race == "Zerg":
+        return []
+
+    performance_metrics = []
+
+    lair_timing = techlabreactor.lair_started_timing(player, replay)
+    if lair_timing >= 0:
+        performance_metrics.append(PerformanceMetric(
+            "Time taken before starting Lair",
+            "Time elapsed from the start of the game before commencing upgrading of a Hatchery into a Lair.",
+            _seconds_to_time_string(lair_timing),
+            _seconds_to_time_string(360),
+            (-1 * lair_timing + 360 + 110) / 110))
+
+    return performance_metrics
+
+
+def _gas_income_performance(player: Player, replay: Replay) -> List[PerformanceMetric]:
+    if not player.play_race == "Zerg":
+        return []
+
+    performance_metrics = []
+
+    timing = techlabreactor.second_gas_timing(player, replay)
+    if timing >= 0:
+        performance_metrics.append(PerformanceMetric(
+            "Time taken before securing 2nd gas geyser",
+            "Time elapsed from the start of the game before commencing construction of the second Extractor, "
+            "Assimilator, or Refinery on a Vespene Geyser.",
+            _seconds_to_time_string(timing),
+            _seconds_to_time_string(300),
+            (-1 * timing + 300 + 52) / 52))
+
+    return performance_metrics
+
+
 def _get_early_game_performance_metrics_for_player(player: Player, replay: Replay) -> List[PerformanceMetric]:
     performance_metrics = []
 
@@ -117,6 +154,8 @@ def _get_early_game_performance_metrics_for_player(player: Player, replay: Repla
     performance_metrics.extend(_worker_saturation_performance(player, replay))
     performance_metrics.extend(_upgrade_performance(player, replay))
     performance_metrics.extend(_expansion_performance(player, replay))
+    performance_metrics.extend(_tier_upgrade_performance(player, replay))
+    performance_metrics.extend(_gas_income_performance(player, replay))
 
     return performance_metrics
 
