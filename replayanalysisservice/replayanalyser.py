@@ -176,6 +176,24 @@ def _safety_spore_performance(player: Player, replay: Replay) -> List[Performanc
     return performance_metrics
 
 
+def _overlord_speed_performance(player: Player, replay: Replay) -> List[PerformanceMetric]:
+    if not player.play_race == "Zerg":
+        return []
+
+    performance_metrics = []
+
+    timing = techlabreactor.overlord_speed_research_started_timing(player, replay)
+    if timing >= 0:
+        performance_metrics.append(PerformanceMetric(
+            "Time taken before researching Overlord speed",
+            "Time elapsed from the start of the game before commencing research of the Pneumatized Carapace research.",
+            _seconds_to_time_string(timing),
+            _seconds_to_time_string(380),
+            (-1 * timing + 380 + 52) / 52))
+
+    return performance_metrics
+
+
 def _get_early_game_performance_metrics_for_player(player: Player, replay: Replay) -> List[PerformanceMetric]:
     performance_metrics = []
 
