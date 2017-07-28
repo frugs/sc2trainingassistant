@@ -114,8 +114,8 @@ def _expansion_performance(player: Player, replay: Replay) -> List[PerformanceMe
             "Time elapsed from the start of the game before commencing construction of an expansion at the fourth "
             "expansion position.",
             _seconds_to_time_string(fourth_expansion_timing),
-            _seconds_to_time_string(375),
-            (-1 * fourth_expansion_timing + 375 + 52) / 52))
+            _seconds_to_time_string(390),
+            (-1 * fourth_expansion_timing + 390 + 52) / 52))
 
     return performance_metrics
 
