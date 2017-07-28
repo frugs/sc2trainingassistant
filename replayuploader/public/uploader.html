@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <title>All-Inspiration Replay Uploader</title>
+</head>
+<body>
+
+<img src="http://allinbot.cloudapp.net/images/allin_official.png" class="logo"><img>
+
+<h1>All-Inspiration Replay Uploader</h1>
+
+<form action="upload" enctype="multipart/form-data" method="post">
+  <input id="replay-upload" type="file" name="replay" accept=".SC2Replay" class="input-file">
+  <label for="replay-upload">
+    <img id="upload-icon" src="upload_icon.svg">
+    <span>
+      <span class="emphasis">Select a replay</span> or drag one over.
+    </span>
+  </label>
+  <input type="submit" value="Upload" class="button">
+</form>
+
+<script type="text/javascript">
+  var inputElement = document.querySelector("#replay-upload")
+  var labelElement = inputElement.nextElementSibling
+  inputElement.addEventListener("change", function(event) {
+    path = event.target.value
+    var filename = path.replace(/^.*[\\\/]/, '')
+    labelElement.querySelector("span").innerHTML = filename
+  })
+</script>
+
+</body>
+</html>

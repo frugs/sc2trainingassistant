@@ -1,0 +1,93 @@
+html {
+    background: white;
+    height: 120vh;
+}
+
+body {
+    margin-top: 1em;
+    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+    color: #3B413C;
+}
+
+h1 {
+    font-style: italic;
+    display: block;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80vw;
+    text-align: center;
+    font-size: 2.5em;
+}
+
+input[type=submit] {
+    width: 60vw;
+    padding: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.logo {
+    display: block;
+    height: 10em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.input-file {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.input-file + label {
+    width: 60vw;
+    padding: 3em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2em;
+    display: block;
+    border: 2px solid #3B413C;
+    border-radius: 4px;
+    box-sizing: border-box;
+    outline: 2px dashed black;
+    outline-offset: -20px;
+    text-align: center;
+    background-color: #F9FDFF;
+}
+
+.input-file:focus + label,
+.input-file + label:hover {
+    background-color: white;
+}
+
+.button {
+    background-color: #9DB5B1;
+    transition-duration: 0.4s;
+}
+
+.button:hover {
+    background-color: #879B98;
+}
+
+.emphasis {
+    font-weight: bold;
+}
+
+#upload-icon {
+    height: 10em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2em;
+    filter:drop-shadow(4px 4px 4px #3B413C);
+}
