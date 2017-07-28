@@ -13,7 +13,7 @@ def _seconds_to_time_string(seconds) -> str:
 
 
 def _inject_performance(player: Player, replay: Replay) -> List[PerformanceMetric]:
-    if not player.play_race == "Zerg":
+    if not player.play_race == "Zerg" or replay.length.seconds < 7 * 60:
         return []
 
     achieved_value = techlabreactor.get_inject_pops_for_player(player, replay)
@@ -122,10 +122,7 @@ def _get_early_game_performance_metrics_for_player(player: Player, replay: Repla
 
 
 def _analyse_player_performance(player: Player, replay: Replay) -> PlayerPerformance:
-    if replay.length.seconds >= 7 * 60:
-        early_game_performance_metrics = _get_early_game_performance_metrics_for_player(player, replay)
-    else:
-        early_game_performance_metrics = []
+    early_game_performance_metrics = _get_early_game_performance_metrics_for_player(player, replay)
 
     return PlayerPerformance(
         "{} ({})".format(player.name, player.play_race),
