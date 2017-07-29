@@ -203,6 +203,8 @@ def _get_early_game_performance_metrics_for_player(player: Player, replay: Repla
     performance_metrics.extend(_expansion_performance(player, replay))
     performance_metrics.extend(_tier_upgrade_performance(player, replay))
     performance_metrics.extend(_gas_income_performance(player, replay))
+    performance_metrics.extend(_safety_spore_performance(player, replay))
+    performance_metrics.extend(_overlord_speed_performance(player, replay))
 
     return performance_metrics
 
