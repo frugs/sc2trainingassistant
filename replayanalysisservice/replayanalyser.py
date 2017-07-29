@@ -1,3 +1,4 @@
+from math import log
 from typing import List
 
 import techlabreactor
@@ -140,12 +141,15 @@ def _creep_performance(player: Player, replay: Replay) -> List[PerformanceMetric
 
     creep_tumours = techlabreactor.creep_tumours_built_before_second(420, player, replay)
     if creep_tumours >= 0:
+        target = 20
+        rating = 0 if creep_tumours <= 10 else (log(creep_tumours - 10) / 3) - 0.68
+
         performance_metrics.append(PerformanceMetric(
             "Number of Creep Tumours built",
             "The number of Creep Tumours that were started during this game phase.",
             str(creep_tumours),
-            str(21),
-            ((creep_tumours - 12) ** 0.0769 - 0.18)))
+            str(target),
+            rating))
 
     return performance_metrics
 
