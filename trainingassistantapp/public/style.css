@@ -131,6 +131,13 @@ td {
   background-color: #5A9977;
 }
 
+.tip {
+    text-align: center;
+    font-size: 0.9em;
+    margin-left: 6em;
+    margin-right: 6em;
+}
+
 .tooltip .tooltiptext {
     visibility: hidden;
     background-color: #483C46;
