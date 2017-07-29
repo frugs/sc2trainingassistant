@@ -18,7 +18,7 @@
     <img id="upload-icon" src="upload_icon.svg">
     <span id="label-content">
       <span>
-        <span class="emphasis">Select a replay</span> or drag one over.
+        <span class="emphasis">Click to select a replay.</span>
       </span>
       <br>
       <br>
@@ -45,11 +45,6 @@
   var wasError = window.location.search.includes("error")
   if (wasError) {
     errorMessageElement.classList.remove("invisible")
-  }
-
-  var dragAndDropSupported = 'draggable' in document.createElement('span') && typeof FileReader != 'undefined'
-  if (!dragAndDropSupported) {
-    labelSpanElement.innerHTML = '<span class="emphasis">Click to select a replay.</span>'
   }
 
   inputElement.addEventListener("change", function(event) {

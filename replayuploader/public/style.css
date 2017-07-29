@@ -62,12 +62,12 @@ input[type=submit] {
     outline: 2px dashed black;
     outline-offset: -20px;
     text-align: center;
-    background-color: #F9FDFF;
+    background-color: white;
 }
 
 .input-file:focus + label,
 .input-file + label:hover {
-    background-color: white;
+    background-color: #F9FDFF;
 }
 
 .button {
