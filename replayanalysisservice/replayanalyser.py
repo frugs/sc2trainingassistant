@@ -66,6 +66,21 @@ def _worker_saturation_performance(player: Player, replay: Replay) -> List[Perfo
     return performance_metrics
 
 
+def _worker_supply_performance(player: Player, replay: Replay) -> List[PerformanceMetric]:
+    performance_metrics = []
+
+    worker_supply = techlabreactor.worker_supply_at(270, player, replay)
+    if worker_supply > 0:
+        performance_metrics.append(PerformanceMetric(
+            "Worker supply at 4:30",
+            "The amount of supply used by workers (active as well as currently in production) at the 4:30 mark.",
+            str(worker_supply),
+            str(42),
+            ((worker_supply - 42) / 14) + 1))
+
+    return performance_metrics
+
+
 def _upgrade_performance(player: Player, replay: Replay) -> List[PerformanceMetric]:
     first_upgrade_started_timing = techlabreactor.first_upgrade_started_timing(player, replay)
 
@@ -199,6 +214,7 @@ def _get_early_game_performance_metrics_for_player(player: Player, replay: Repla
 
     performance_metrics.extend(_inject_performance(player, replay))
     performance_metrics.extend(_worker_saturation_performance(player, replay))
+    performance_metrics.extend(_worker_supply_performance(player, replay))
     performance_metrics.extend(_upgrade_performance(player, replay))
     performance_metrics.extend(_expansion_performance(player, replay))
     performance_metrics.extend(_tier_upgrade_performance(player, replay))
