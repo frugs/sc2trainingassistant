@@ -135,6 +135,21 @@ def _expansion_performance(player: Player, replay: Replay) -> List[PerformanceMe
     return performance_metrics
 
 
+def _creep_performance(player: Player, replay: Replay) -> List[PerformanceMetric]:
+    performance_metrics = []
+
+    creep_tumours = techlabreactor.creep_tumours_built_before_second(420, player, replay)
+    if creep_tumours >= 0:
+        performance_metrics.append(PerformanceMetric(
+            "Number of Creep Tumours built",
+            "The number of Creep Tumours that were started during this game phase.",
+            str(creep_tumours),
+            str(21),
+            ((creep_tumours - 12) ** 0.0769 - 0.18)))
+
+    return performance_metrics
+
+
 def _tier_upgrade_performance(player: Player, replay: Replay) -> List[PerformanceMetric]:
     if not player.play_race == "Zerg":
         return []
@@ -217,6 +232,7 @@ def _get_early_game_performance_metrics_for_player(player: Player, replay: Repla
     performance_metrics.extend(_worker_supply_performance(player, replay))
     performance_metrics.extend(_upgrade_performance(player, replay))
     performance_metrics.extend(_expansion_performance(player, replay))
+    performance_metrics.extend(_creep_performance(player, replay))
     performance_metrics.extend(_tier_upgrade_performance(player, replay))
     performance_metrics.extend(_gas_income_performance(player, replay))
     performance_metrics.extend(_safety_spore_performance(player, replay))
