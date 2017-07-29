@@ -142,7 +142,7 @@ def _creep_performance(player: Player, replay: Replay) -> List[PerformanceMetric
     creep_tumours = techlabreactor.creep_tumours_built_before_second(420, player, replay)
     if creep_tumours >= 0:
         target = 20
-        rating = 0 if creep_tumours <= 10 else (log(creep_tumours - 10) / 3) - 0.68
+        rating = 0 if creep_tumours <= 10 else (log(creep_tumours - 10) / 3) + 0.68
 
         performance_metrics.append(PerformanceMetric(
             "Number of Creep Tumours built",
