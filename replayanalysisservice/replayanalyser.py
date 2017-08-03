@@ -14,7 +14,7 @@ def _seconds_to_time_string(seconds) -> str:
 
 
 def _inject_performance(player: Player, replay: Replay) -> List[PerformanceMetric]:
-    if not player.play_race == "Zerg" or replay.length.seconds < 7 * 60:
+    if not player.play_race == "Zerg":
         return []
 
     achieved_value = techlabreactor.get_inject_pops_for_player(player, replay)
@@ -68,6 +68,9 @@ def _worker_saturation_performance(player: Player, replay: Replay) -> List[Perfo
 
 
 def _worker_supply_performance(player: Player, replay: Replay) -> List[PerformanceMetric]:
+    if replay.length.seconds < 270:
+        return []
+
     performance_metrics = []
 
     worker_supply = techlabreactor.worker_supply_at(270, player, replay)
